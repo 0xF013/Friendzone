@@ -1,4 +1,8 @@
 Friendzone::Application.routes.draw do
+
+  match "/" => "frontpage#index"
+  get "/locations/:lat/:long" => "locations#index", :constraints => { :lat => /[^\/]+/, :long => /[^\/]+/ }
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
