@@ -13,3 +13,23 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+$(function(){
+  $(".btn-locator").on("click", function(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position){
+        console.log(
+          "lat", position.coords.latitude,
+          "long", position.coords.longitude
+        );
+        window.location.href = "/locations/" 
+        + position.coords.latitude 
+        + "/" + position.coords.longitude;
+      });
+    } else{
+        // get location by ip in this case
+    }
+  });
+});
+

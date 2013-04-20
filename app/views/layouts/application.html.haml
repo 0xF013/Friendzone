@@ -1,0 +1,21 @@
+!!!
+%head
+  %meta{:charset => "utf-8"}
+  %title Friendzone
+  =stylesheet_link_tag    "application" 
+  =javascript_include_tag "application" 
+  =csrf_meta_tags
+
+%body
+  .navbar
+    .navbar-inner
+      %a.brand{:href => "#"} Friendzone
+      %ul.nav
+        %li.active
+          %a{:href => "#"} Home
+        %li
+          %a{:href => "#"} Link
+        %li
+          %a{:href => "#"} Link
+  .container
+    = yield

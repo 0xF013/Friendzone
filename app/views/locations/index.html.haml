@@ -1,0 +1,10 @@
+= @lat
+= @long
+
+%ul
+  = @tweets.map do |tweet|
+    %li
+      .name
+        = tweet.from_user
+      .text
+        = tweet.text
