@@ -1,10 +1,89 @@
-= @lat
-= @long
 
-%ul
-  = @tweets.map do |tweet|
-    %li
-      .name
-        = tweet.from_user
-      .text
-        = tweet.text
+.tweets.well
+  %h2
+    Твитты
+  - @tweets.map do |tweet|
+    = #tweet.inspect
+    .media
+      %a.pull-left(href="#")
+        %img(src="#{tweet.profile_image_url}")
+
+          
+      .media-body
+        %h5.media-heading
+          = tweet.from_user
+        = auto_link(tweet.text).html_safe
+
+%br
+%br
+%br
+
+%h2
+  Панорамы
+%ul.thumbnails
+  - @panorams.first(4).map do |panoram|
+    = #panoram.inspect
+    %li.span3
+      .thumbnail
+        %img(width=200 src="#{panoram.photo_file_url}")
+        %h5
+          = panoram.photo_title
+        %p
+          
+          от 
+          = panoram.owner_name
+
+
+ 
+
+%h2
+  Инстаграм
+%ul.thumbnails
+  - @instagrams.first(4).map do |instagram|
+    %li.span3
+      .thumbnail
+        %img(width=200 src="#{instagram.images.low_resolution.url}")
+        %h5
+          = #panoram.photo_title
+        %p
+          - if instagram.caption
+            от 
+
+            = instagram.caption.from.username    
+
+
+%script(type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3OTgW2rSNGVBXLIZuXrAyecmWfflhmF4&sensor=false")
+
+:javascript
+  $(function(){
+    var mapOptions = {
+      center: new google.maps.LatLng(#{@lat}, #{@long}),
+      zoom: 17,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);
+
+    var panorams = #{@panorams.map{|p| {image: p.photo_file_url, lat: p.latitude, long: p.longitude}}.to_json};
+
+    $.each(panorams, function(k, v){
+      var myLatLng = new google.maps.LatLng(v.lat, v.long);
+      var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          icon: new google.maps.MarkerImage(v.image, null, null, null, new google.maps.Size(64, 64))
+      });
+
+      google.maps.event.addListener(marker, "click", function() {
+          //window.open(v.image);
+          $.colorbox({href: v.image})
+      });
+
+
+    });
+
+
+
+  });
+
+#map_canvas.span12(style="height: 400px;padding-bottom: 100px") 

@@ -66,9 +66,3 @@ Friendzone::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
 
-Twitter.configure do |config|
-  config.consumer_key = "auK6r0SZ7O6w089GzCodQ"
-  config.consumer_secret = "npVrFCSkwuvzhX6NXte16jlvV4OClYNhTDpebw"
-  config.oauth_token = "20357633-IyF16BMWMLrgYzFh3BAAXWzllRVfol5RAeoTqmE0g"
-  config.oauth_token_secret = "imW5YSdAbaKmJOLwwmDOnXWOFuBDiGBozcYbknU"
-end
