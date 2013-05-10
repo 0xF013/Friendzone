@@ -1,5 +1,6 @@
-PATH
-  remote: lib/panoramio-rb
+GIT
+  remote: https://github.com/0xF013/panoramio-rb.git
+  revision: c4f0e68d43ff38101332b2512f11ca6d39536ed0
   specs:
     panoramio-rb (1.0.4)
       geocoder (~> 1.0.5)

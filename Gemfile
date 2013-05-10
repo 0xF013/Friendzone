@@ -10,7 +10,7 @@ gem 'rb-readline'
 gem 'therubyracer'
 gem "haml", "~> 4.0.2"
 gem "twitter"
-gem 'panoramio-rb', :path => "lib/panoramio-rb"
+gem 'panoramio-rb', :git => 'https://github.com/0xF013/panoramio-rb.git'
 gem 'instagram'
 gem 'rinku', '~> 1.2.2', :require => 'rails_rinku'
 # Gems used only for assets and not required
