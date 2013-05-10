@@ -1,61 +1,147 @@
 
-.tweets.well
-  %h2
-    Твитты
+#blocksit
   - @tweets.map do |tweet|
-    = #tweet.inspect
-    .media
-      %a.pull-left(href="#")
-        %img(src="#{tweet.profile_image_url}")
-
-          
-      .media-body
-        %h5.media-heading
-          = tweet.from_user
-        = auto_link(tweet.text).html_safe
-
-%br
-%br
-%br
-
-%h2
-  Панорамы
-%ul.thumbnails
-  - @panorams.first(4).map do |panoram|
-    = #panoram.inspect
-    %li.span3
-      .thumbnail
-        %img(width=200 src="#{panoram.photo_file_url}")
-        %h5
-          = panoram.photo_title
-        %p
-          
-          от 
-          = panoram.owner_name
 
 
- 
+    .grid
+      .twitter
+        = #@tweet_embeds[tweet.id]
+        -if true
+          .media
+            %a.pull-left(href="#")
+              %img(src="https://api.twitter.com/1/users/profile_image?screen_name=#{tweet.from_user}&size=bigger")
 
-%h2
-  Инстаграм
-%ul.thumbnails
-  - @instagrams.first(4).map do |instagram|
-    %li.span3
-      .thumbnail
-        %img(width=200 src="#{instagram.images.low_resolution.url}")
-        %h5
-          = #panoram.photo_title
-        %p
-          - if instagram.caption
+                
+            .media-body
+              %h5.media-heading
+                = tweet.from_user
+              = auto_link(tweet.text).html_safe
+
+  - @panorams.map do |panoram|
+    .grid
+      .panoramio
+        .thumbnail
+          %img(width=200 src="#{panoram.photo_file_url}")
+          %h5
+            = panoram.photo_title
+          %p
+            
             от 
+            = panoram.owner_name
 
-            = instagram.caption.from.username    
+  - @instagrams.map do |instagram|
+    .grid
+      .instagram
+        .thumbnail
+          %img(width=200 src="#{instagram.images.low_resolution.url}")
+          %h5
+            = #panoram.photo_title
+          %p
+            - if instagram.caption
+              от 
+
+              = instagram.caption.from.username    
+
+
+
+
+- if false
+  .tweets.well
+    %h2
+      Твитты
+    - @tweets.map do |tweet|
+      = #tweet.inspect
+      .media
+        %a.pull-left(href="#")
+          %img(src="#{tweet.profile_image_url}")
+
+            
+        .media-body
+          %h5.media-heading
+            = tweet.from_user
+          = auto_link(tweet.text).html_safe
+
+  %br
+  %br
+  %br
+
+  %h2
+    Панорамы
+  %ul.thumbnails
+    - @panorams.first(4).map do |panoram|
+      = #panoram.inspect
+      %li.span3
+        .thumbnail
+          %img(width=200 src="#{panoram.photo_file_url}")
+          %h5
+            = panoram.photo_title
+          %p
+            
+            от 
+            = panoram.owner_name
+
+
+   
+
+  %h2
+    Инстаграм
+  %ul.thumbnails
+    - @instagrams.first(4).map do |instagram|
+      = #instagram.inspect
+      %li.span3
+        .thumbnail
+          %img(width=200 src="#{instagram.images.low_resolution.url}")
+          %h5
+            = #panoram.photo_title
+          %p
+            - if instagram.caption
+              от 
+
+              = instagram.caption.from.username    
 
 
 %script(type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3OTgW2rSNGVBXLIZuXrAyecmWfflhmF4&sensor=false")
 
 :javascript
+
+  (function($){
+   
+      $.fn.shuffle = function() {
+   
+          var allElems = this.get(),
+              getRandom = function(max) {
+                  return Math.floor(Math.random() * max);
+              },
+              shuffled = $.map(allElems, function(){
+                  var random = getRandom(allElems.length),
+                      randEl = $(allElems[random]).clone(true)[0];
+                  allElems.splice(random, 1);
+                  return randEl;
+             });
+   
+          this.each(function(i){
+              $(this).replaceWith($(shuffled[i]));
+          });
+   
+          return $(shuffled);
+   
+      };
+   
+  })(jQuery);
+
+
   $(function(){
+
+    $("#blocksit .grid").shuffle();
+    setTimeout(function(){
+      $("#blocksit").BlocksIt({
+              numOfCol: 3,
+              offsetX: 8,
+              offsetY: 8
+            });    
+    }, 500);
+
+
     var mapOptions = {
       center: new google.maps.LatLng(#{@lat}, #{@long}),
       zoom: 17,
@@ -64,7 +150,7 @@
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         mapOptions);
 
-    var panorams = #{@panorams.map{|p| {image: p.photo_file_url, lat: p.latitude, long: p.longitude}}.to_json};
+    var panorams = #{(@panorams.map{|p| {image: p.photo_file_url, lat: p.latitude, long: p.longitude}} + @instagrams.map{|i| {image: i.images.standard_resolution.url, lat: i.location.latitude, long: i.location.longitude}} ).to_json};
 
     $.each(panorams, function(k, v){
       var myLatLng = new google.maps.LatLng(v.lat, v.long);

@@ -6,10 +6,11 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
+gem 'rb-readline'
 gem 'therubyracer'
 gem "haml", "~> 4.0.2"
 gem "twitter"
-gem 'panoramio-rb', :path => "../panoramio-rb"
+gem 'panoramio-rb', :path => "lib/panoramio-rb"
 gem 'instagram'
 gem 'rinku', '~> 1.2.2', :require => 'rails_rinku'
 # Gems used only for assets and not required

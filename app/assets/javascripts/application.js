@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require jquery.colorbox-min.js
+//= require jquery.blocksit-min.js
 
 
 $(function(){
