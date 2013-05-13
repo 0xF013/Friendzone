@@ -1,6 +1,7 @@
 Friendzone::Application.routes.draw do
 
   match "/" => "frontpage#index"
+  root :to => 'frontpage#index'
   get "/locations/:lat/:long" => "locations#index", :constraints => { :lat => /[^\/]+/, :long => /[^\/]+/ }
 
   match "/auth/:provider/callback" => "sessions#create"
