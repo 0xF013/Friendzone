@@ -29,9 +29,18 @@
       Welcome #{current_user.name}!
       = link_to "Sign Out", signout_path
     - else
-      = link_to "twitter", "/auth/twitter"
-      = link_to "fb", "/auth/facebook"
-      = link_to "instagram", "/auth/instagram"
-      = link_to "google_oauth2", "/auth/google_oauth2"
+      %h2
+        Войти
+      %a(href="/auth/twitter")
+        %img(src="/assets/twitter.png" width="40")
+
+      %a(href="/auth/facebook")
+        %img(src="/assets/facebook.png" width="40")
+
+      %a(href="/auth/instagram")
+        %img(src="/assets/instagram.png" width="40")
+
+      %a(href="/auth/google_oauth2")
+        %img(src="/assets/google.png" width="40")                           
 
     = yield
