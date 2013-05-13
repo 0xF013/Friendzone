@@ -1,0 +1,7 @@
+%h1 Недавние места
+
+%ul
+  - @places.each do |p|
+    %li
+      %a(href="/locations/#{p.latitude}/#{p.longitude}")
+        = p.name

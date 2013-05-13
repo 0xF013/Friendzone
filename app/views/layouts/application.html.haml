@@ -1,22 +1,28 @@
 !!!
 %head
   %meta{:charset => "utf-8"}
-  %title Friendzone
+  %title Look@ItGo
   =stylesheet_link_tag    "application" 
   =javascript_include_tag "application" 
   =csrf_meta_tags
+  %script(type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places")
 
 %body
   .navbar
     .navbar-inner
-      %a.brand{:href => "#"} Friendzone
-      %ul.nav
-        %li.active
-          %a{:href => "#"} Home
-        %li
-          %a{:href => "#"} Link
-        %li
-          %a{:href => "#"} Link
+      %a.brand{:href => "/"} Look@ItGo
+      - if current_user
+        %ul.nav
+          %li
+            %a.locator{:href => "#"} Записи рядом
+          %li
+            %a{:href => "/locations/list"} История мест
+          %li
+            %a{:href => "#"} Лента    
+        %form.navbar-search.pull-left(action="/locations/search")
+          %input.search-query(type="text" placeholder="Место")
+                 
+
   .container
 
     - if current_user

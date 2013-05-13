@@ -15,10 +15,10 @@
 //= require_tree .
 //= require jquery.colorbox-min.js
 //= require jquery.blocksit-min.js
-
+//= require jquery.geocomplete.js
 
 $(function(){
-  $(".btn-locator").on("click", function(){
+  $(".locator").on("click", function(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         console.log(
@@ -32,6 +32,13 @@ $(function(){
     } else{
         // get location by ip in this case
     }
+  });
+
+
+  $(".search-query").geocomplete().bind("geocode:result", function(e, r){
+    window.location.href = "/locations/" 
+      + r.geometry.location.kb 
+      + "/" + r.geometry.location.lb ;
   });
 });
 
