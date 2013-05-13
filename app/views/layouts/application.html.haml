@@ -18,4 +18,14 @@
         %li
           %a{:href => "#"} Link
   .container
+
+    - if current_user
+      Welcome #{current_user.name}!
+      = link_to "Sign Out", signout_path
+    - else
+      = link_to "twitter", "/auth/twitter"
+      = link_to "fb", "/auth/facebook"
+      = link_to "instagram", "/auth/instagram"
+      = link_to "google_oauth2", "/auth/google_oauth2"
+
     = yield

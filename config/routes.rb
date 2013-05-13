@@ -3,6 +3,10 @@ Friendzone::Application.routes.draw do
   match "/" => "frontpage#index"
   get "/locations/:lat/:long" => "locations#index", :constraints => { :lat => /[^\/]+/, :long => /[^\/]+/ }
 
+  match "/auth/:provider/callback" => "sessions#create"
+  match "/signout" => "sessions#destroy", :as => :signout
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
