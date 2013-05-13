@@ -8,7 +8,8 @@
 
     .grid
       .twitter
-        = #@tweet_embeds[tweet.id]
+        .hidden-content
+          = tweet.to_json
         -if true
           .media
             %a.pull-left(href="#")
@@ -19,22 +20,29 @@
               %h5.media-heading
                 = tweet.from_user
               = auto_link(tweet.text).html_safe
+        %a.liker.icon-thumbs-up(href="#" data-type="twitter" data-id="#{tweet.id}")
+          &nbsp;
 
   - @panorams.map do |panoram|
     .grid
       .panoramio
+        .hidden-content
+          = panoram.to_json      
         .thumbnail
           %img(width=200 src="#{panoram.photo_file_url}")
           %h5
             = panoram.photo_title
           %p
-            
             от 
             = panoram.owner_name
+        %a.liker.icon-thumbs-up(href="#" data-type="panoramio" data-id="#{panoram.photo_id}")
+          &nbsp;            
 
   - @instagrams.map do |instagram|
     .grid
       .instagram
+        .hidden-content
+          = instagram.to_json         
         .thumbnail
           %img(width=200 src="#{instagram.images.low_resolution.url}")
           %h5
@@ -42,9 +50,9 @@
           %p
             - if instagram.caption
               от 
-
               = instagram.caption.from.username    
-
+        %a.liker.icon-thumbs-up(href="#" data-type="instagram" data-id="#{instagram.id}")
+          &nbsp;  
 
 
 
@@ -134,6 +142,18 @@
 
 
   $(function(){
+
+    $(".liker").click(function(){
+      var $this = $(this);
+      $.post("/locations/like", {
+        id: $(this).data("id"),
+        type: $(this).data("type"),
+        content: $.parseJSON($(this).closest(".grid").find(".hidden-content").html())
+      }, function(){
+        $this.fadeOut("fast");
+      });
+      return false;
+    });
 
     $("#blocksit .grid").shuffle();
     setTimeout(function(){

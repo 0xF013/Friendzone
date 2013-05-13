@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513133421) do
+ActiveRecord::Schema.define(:version => 20130513160730) do
+
+  create_table "likes", :force => true do |t|
+    t.string   "item_id"
+    t.string   "item_type"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "places", :force => true do |t|
     t.float    "latitude"

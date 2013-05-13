@@ -42,5 +42,36 @@ class LocationsController < ApplicationController
     @places = current_user.places
   end
 
+  def likes
+    @likes = current_user.likes
+  end
+
+  def like
+    type = params[:type]
+    id = params[:id]    
+    content = params[:content]
+
+    like = current_user.likes.find_by_item_id_and_item_type(id, type)
+    unless like
+      current_user.likes.create :item_id => id, :item_type => type, :content => content
+    end
+
+    render :json => {status: "ok"}
+
+  end
+
+  # def like
+  #   @type = params[:type]
+  #   @id = params[:id]
+
+  #   case @type
+
+  #     when "twitter"
+  #       item = Twitter.status(@id)
+  #     when "panoramio"
+  #       item = PanoramioRb
+
+  # end
+  # Like.create :id => @id, :type => @type, :content => item
 
 end

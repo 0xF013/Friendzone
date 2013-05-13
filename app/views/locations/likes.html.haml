@@ -1,0 +1,84 @@
+
+%h1
+  Лента
+
+#blocksit
+  
+  - @likes.map do |like|
+    .grid
+      %div(class="#{like.item_type}")
+        - if like.item_type == "twitter"
+          = #like.content
+          .media
+            %a.pull-left(href="#")
+              %img(src="https://api.twitter.com/1/users/profile_image?screen_name=#{like.content["user"]["screen_name"]}&size=bigger")
+
+                
+            .media-body
+              %h5.media-heading
+                = like.content["user"]["screen_name"]
+              = auto_link(like.content["text"]).html_safe
+        - if like.item_type == "panoramio"
+          = #like.content
+          .thumbnail
+            %img(width=200 src="#{like.content["photo_file_url"]}")
+            %h5
+              = like.content["photo_title"]
+            %p
+              от 
+              = like.content["owner_name"]
+        - if like.item_type == "instagram"
+          = #like.content        
+          .thumbnail
+            %img(width=200 src="#{like.content["images"]["low_resolution"]["url"]}")
+            %h5
+              = #panoram.photo_title
+            %p
+              - if like.content["caption"]
+                от 
+                = like.content["caption"]["from"]["username"]            
+
+:javascript
+
+  (function($){
+   
+      $.fn.shuffle = function() {
+   
+          var allElems = this.get(),
+              getRandom = function(max) {
+                  return Math.floor(Math.random() * max);
+              },
+              shuffled = $.map(allElems, function(){
+                  var random = getRandom(allElems.length),
+                      randEl = $(allElems[random]).clone(true)[0];
+                  allElems.splice(random, 1);
+                  return randEl;
+             });
+   
+          this.each(function(i){
+              $(this).replaceWith($(shuffled[i]));
+          });
+   
+          return $(shuffled);
+   
+      };
+   
+  })(jQuery);
+
+
+  $(function(){
+
+
+
+    $("#blocksit .grid").shuffle();
+    setTimeout(function(){
+      $("#blocksit").BlocksIt({
+              numOfCol: 3,
+              offsetX: 8,
+              offsetY: 8
+            });    
+    }, 500);
+
+
+
+  });

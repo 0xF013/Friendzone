@@ -5,6 +5,8 @@ Friendzone::Application.routes.draw do
   get "/locations/:lat/:long" => "locations#index", :constraints => { :lat => /[^\/]+/, :long => /[^\/]+/ }
   get 'locations/list' => 'locations#list'
   get 'locations/search' => 'locations#search'  
+  get 'locations/likes' => "locations#likes"
+  post 'locations/like' => "locations#like"
 
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
