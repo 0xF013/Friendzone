@@ -30,6 +30,8 @@ class LocationsController < ApplicationController
     response = Net::HTTP.get_response("maps.googleapis.com","/maps/api/geocode/json?latlng=#{@lat},#{@long}&sensor=false&language=ru")
 
     json = JSON.parse(response.body)
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++="
+    puts json.inspect
     name = json["results"].first["formatted_address"]
     @place = current_user.places.find_by_name(name)
     unless @place
