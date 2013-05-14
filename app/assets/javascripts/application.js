@@ -30,7 +30,7 @@ $(function(){
         + "/" + position.coords.longitude;
       });
     } else{
-        // get location by ip in this case
+        window.location.href = "/locations/ip";
     }
   });
 

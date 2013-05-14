@@ -178,6 +178,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 2.3.1.0)
   coffee-rails (~> 3.2.1)
+  geocoder
   haml (~> 4.0.2)
   instagram
   jquery-rails

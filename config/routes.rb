@@ -6,6 +6,7 @@ Friendzone::Application.routes.draw do
   get 'locations/list' => 'locations#list'
   get 'locations/search' => 'locations#search'  
   get 'locations/likes' => "locations#likes"
+  get 'locations/ip' => "locations#ip"
   post 'locations/like' => "locations#like"
 
   match "/auth/:provider/callback" => "sessions#create"

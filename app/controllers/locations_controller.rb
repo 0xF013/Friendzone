@@ -62,6 +62,11 @@ class LocationsController < ApplicationController
 
   end
 
+  def ip
+    redirect_to "/locations/#{request.location.latitude}/#{request.location.longitude}"
+  end
+
+
   # def like
   #   @type = params[:type]
   #   @id = params[:id]
