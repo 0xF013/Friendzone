@@ -28,6 +28,8 @@ $(function(){
         window.location.href = "/locations/" 
         + position.coords.latitude 
         + "/" + position.coords.longitude;
+      }, function(){
+        window.location.href = "/locations/ip";
       });
     } else{
         window.location.href = "/locations/ip";
