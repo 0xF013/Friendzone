@@ -42,5 +42,12 @@ $(function(){
       + r.geometry.location.kb 
       + "/" + r.geometry.location.lb ;
   });
+
+  $(".grid .thumbnail img").click(function(){
+    $.colorbox({href: $(this).attr("src")})    ;
+  });
+
+  $(".twitter-colorbox").colorbox({inline: true})
+
 });
 

@@ -5,12 +5,12 @@
 #blocksit
   
   - @likes.map do |like|
-    .grid
+    .grid(id="#{like.item_type}_#{like.item_id}")
       %div(class="#{like.item_type}")
         - if like.item_type == "twitter"
           = #like.content
           .media
-            %a.pull-left(href="#")
+            %a.twitter-colorbox.pull-left(href="##{like.item_type}_#{like.item_id}")
               %img(src="https://api.twitter.com/1/users/profile_image?screen_name=#{like.content["user"]["screen_name"]}&size=bigger")
 
                 
@@ -34,7 +34,8 @@
             %h5
               = #panoram.photo_title
             %p
-              - if like.content["caption"]
+              - unless like.content["caption"].empty?
+
                 от 
                 = like.content["caption"]["from"]["username"]            
 

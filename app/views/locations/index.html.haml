@@ -6,13 +6,13 @@
   - @tweets.map do |tweet|
 
 
-    .grid
+    .grid(id="twitter_#{tweet.id}")
       .twitter
         .hidden-content
           = tweet.to_json
         -if true
           .media
-            %a.pull-left(href="#")
+            %a.twitter-colorbox.pull-left(href="#twitter_#{tweet.id}")
               %img(src="https://api.twitter.com/1/users/profile_image?screen_name=#{tweet.from_user}&size=bigger")
 
                 
