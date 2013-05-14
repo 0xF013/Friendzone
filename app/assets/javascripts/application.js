@@ -30,7 +30,7 @@ $(function(){
         + "/" + position.coords.longitude;
       }, function(){
         window.location.href = "/locations/ip";
-      });
+      },{timeout:5000});
     } else{
         window.location.href = "/locations/ip";
     }
