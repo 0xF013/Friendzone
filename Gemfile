@@ -7,7 +7,7 @@ gem 'rails', '3.2.13'
 
 #gem 'sqlite3'
 gem 'rb-readline'
-gem 'therubyracer'
+
 gem "haml", "~> 4.0.2"
 gem "twitter"
 gem 'panoramio-rb', :git => 'https://github.com/0xF013/panoramio-rb.git'
@@ -21,11 +21,11 @@ gem 'geocoder'
 
 # Gems used only for assets and not required
 # in production environments by default.
-  gem 'sass-rails',   '~> 3.2.3'
 group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'bootstrap-sass', '~> 2.3.1.0'  
-
+  gem 'therubyracer'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
