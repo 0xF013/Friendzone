@@ -8,6 +8,7 @@ Friendzone::Application.routes.draw do
   get 'locations/likes' => "locations#likes"
   get 'locations/ip' => "locations#ip"
   post 'locations/like' => "locations#like"
+  post 'locations/dislike' => "locations#dislike"
 
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout

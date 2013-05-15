@@ -37,7 +37,9 @@
               - unless like.content["caption"].empty?
 
                 от 
-                = like.content["caption"]["from"]["username"]            
+                = like.content["caption"]["from"]["username"]     
+        %a.disliker.icon-thumbs-down(href="#" data-type="#{like.item_type}" data-id="#{like.item_id}")
+          &nbsp;                       
 
 :javascript
 
@@ -69,6 +71,19 @@
 
   $(function(){
 
+
+
+    $(".disliker").click(function(){
+      var $this = $(this);
+      $.post("/locations/dislike", {
+        id: $(this).data("id"),
+        type: $(this).data("type")
+      }, function(){
+        //$this.fadeOut("fast");
+          $this.closest(".grid").fadeOut("fast");
+      });
+      return false;
+    });
 
 
     $("#blocksit .grid").shuffle();
